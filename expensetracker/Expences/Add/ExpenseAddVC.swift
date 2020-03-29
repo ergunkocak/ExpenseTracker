@@ -319,33 +319,31 @@ class ExpenseAddVC: UIViewController, ExpenseAddProtocol {
             presenter.addExpense()
         }
     }
-    
-    
 }
 
 extension ExpenseAddVC: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView.tag == accountTag {
-            return presenter.accounts[row].name
+            return accounts.value[row].name
         } else if pickerView.tag == incomeCategoryTag {
-            return presenter.incomeCategories[row].name
+            return incomeCategories.value[row].name
         } else if pickerView.tag == expenseCategoryTag {
-            return presenter.expenseCategories[row].name
+            return expenseCategories.value[row].name
         }
         return ""
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView.tag == accountTag {
-            let account = presenter.accounts[row]
+            let account = accounts.value[row]
             presenter.selectedAccount = account
             accountInput.text = account.name
         } else if pickerView.tag == incomeCategoryTag {
-            let incomeCategory = presenter.incomeCategories[row]
+            let incomeCategory = incomeCategories.value[row]
             presenter.selectedIncomeCategory = incomeCategory
             incomeCategoryInput.text = incomeCategory.name
         } else if pickerView.tag == expenseCategoryTag {
-            let expenseCategory = presenter.expenseCategories[row]
+            let expenseCategory = expenseCategories.value[row]
             presenter.selectedExpenseCategory = expenseCategory
             expenseCategoryInput.text = expenseCategory.name
         }
@@ -359,11 +357,11 @@ extension ExpenseAddVC: UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag == accountTag {
-            return presenter.accounts.count
+            return accounts.value.count
         } else if pickerView.tag == incomeCategoryTag {
-            return presenter.incomeCategories.count
+            return incomeCategories.value.count
         } else if pickerView.tag == expenseCategoryTag {
-            return presenter.expenseCategories.count
+            return expenseCategories.value.count
         }
 
         return 0

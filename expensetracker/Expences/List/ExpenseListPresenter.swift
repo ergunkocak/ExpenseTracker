@@ -10,18 +10,26 @@ import RxGRDB
 
 class ExpenseListPresenter {
     
-    var accounts: [AccountRecord] = [] // used to keep order
-    var incomeCategories: [IncomeCategoryRecord] = []
-    var expenseCategories: [ExpenseCategoryRecord] = []
     var expenses: [AccountRecord.ID: [ExpenseRecord]] = [:]
     var reloadRequired = BehaviorRelay<Bool>(value: false)
 
     private let disposeBag = DisposeBag()
+    
+    init() {
+        let request = ExpenseRecord.all()
+        request.rx.changes(in: dbQueue)
+            .subscribe(
+                onNext: { [weak self] (_) in
+                    guard let presenter = self else { return }
+                    debugPrint("Expenses have changed.")
+                    presenter.load()
+                }
+        ).disposed(by: disposeBag)
+    }
 
     func load() {
-        let observables = accounts.map { [weak self] (record: AccountRecord) -> Observable<[ExpenseRecord]> in
+        let observables = accounts.value.map { [weak self] (record: AccountRecord) -> Observable<[ExpenseRecord]> in
             guard let presenter = self else { return Observable.just([]) }
-            presenter.accounts = accounts
             return presenter.loadExpencesRx(of: record.id!)
         }
         Observable.zip(observables)
@@ -31,7 +39,9 @@ class ExpenseListPresenter {
                     debugPrint(recordGroups)
                     recordGroups.filter({ !$0.isEmpty }).forEach { (expenseGroup: [ExpenseRecord]) in
                         let accountId = expenseGroup.first!.accountId
+                        debugPrint("Account Id: \(accountId)")
                         presenter.expenses[accountId] = expenseGroup
+                        debugPrint(expenseGroup)
                     }
                     presenter.reloadRequired.accept(true)
                 }
@@ -41,6 +51,7 @@ class ExpenseListPresenter {
     
     func loadExpencesRx(of accountId: Int64) -> Observable<[ExpenseRecord]> {
         return ExpenseRecord
+            .filter(Column("accountId") == accountId)
             .limit(10)
             .order(Column("createdTS").desc)
             .rx

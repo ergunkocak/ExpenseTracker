@@ -36,19 +36,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Observable
             .zip(AppDatabase.loadAccountsRx(), AppDatabase.loadIncomeCategoriesRx(), AppDatabase.loadExpenseCategoriesRx())
             .subscribe(
-                onNext: { (accounts: [AccountRecord], incomeCategories: [IncomeCategoryRecord], expenseCategories: [ExpenseCategoryRecord]) in
+                onNext: { (_accounts: [AccountRecord], _incomeCategories: [IncomeCategoryRecord], _expenseCategories: [ExpenseCategoryRecord]) in
+                    accounts.accept(_accounts)
+                    incomeCategories.accept(_incomeCategories)
+                    expenseCategories.accept(_expenseCategories)
                     self.window = UIWindow(frame: UIScreen.main.bounds)
-                    self.window?.rootViewController = self.generateTabBarVC(accounts: accounts, incomeCategories: incomeCategories, expenseCategories: expenseCategories)
+                    self.window?.rootViewController = self.generateTabBarVC()
                     self.window?.makeKeyAndVisible()
                 }
             )
             .disposed(by: disposeBag)
     }
     
-    func generateTabBarVC(accounts: [AccountRecord], incomeCategories: [IncomeCategoryRecord], expenseCategories: [ExpenseCategoryRecord]) -> MainTBC {
+    func generateTabBarVC() -> MainTBC {
         let mainTBC = MainTBC()
         mainTBC.viewControllers = [
-            ExpenseListRouter.generateListVC(accounts: accounts, incomeCategories: incomeCategories, expenseCategories: expenseCategories),
+            ExpenseListRouter.generateListVC(),
             ReportRouter.generateMainVC()
         ]
         let tabHome = mainTBC.tabBar.items![0]

@@ -9,6 +9,7 @@ def common_pods
   pod 'SnapKit', '5.0.0'
   pod 'GRDB.swift', '4.12.0'
   pod 'RxGRDB', '0.18.0'
+  pod 'SwiftDate', '5.1.0'
 end
 
 target 'ExpenseTracker' do

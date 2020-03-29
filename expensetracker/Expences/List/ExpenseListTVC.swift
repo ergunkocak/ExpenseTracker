@@ -25,6 +25,12 @@ class ExpenseListTVC: UITableViewController {
         presenter.load()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Apple UI Hack
+        tableView.reloadData()
+    }
+    
     func setupNavigation() {
         let buttonPlus = UIBarButtonItem(image: UIImage(named: "plus"), style: .plain, target: self, action: #selector(addNew))
         navigationItem.rightBarButtonItem  = buttonPlus
@@ -33,6 +39,8 @@ class ExpenseListTVC: UITableViewController {
     func setupTable() {
         tableView.allowsMultipleSelection = false
         tableView.tableFooterView = UIView(frame: .zero)
+        tableView.register(ExpenseListCell.self, forCellReuseIdentifier: ExpenseListCell.reuseIdentifier)
+        tableView.rowHeight = 80
     }
     
     func setupBindings() {
@@ -50,13 +58,13 @@ class ExpenseListTVC: UITableViewController {
     }
     
     @objc func addNew() {
-        ExpenseListRouter.showAddNew(from: self, accounts: presenter.accounts, incomeCategories: presenter.incomeCategories, expenseCategories: presenter.expenseCategories)
+        ExpenseListRouter.showAddNew(from: self)
     }
     
     // MARK: Table Delegates
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter.accounts.count
+        return accounts.value.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -64,11 +72,23 @@ class ExpenseListTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: ExpenseListCell.reuseIdentifier, for: indexPath)
+        if let cell = cell as? ExpenseListCell {
+            cell.layout()
+        }
+        return cell
     }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = cell as? ExpenseListCell else { return }
+        let account = accounts.value[indexPath.section]
+        guard let expense = presenter.expenses[account.id!]?[indexPath.row] else { return }
+        cell.expense = expense
+    }
+    
+    // TODO: replace this . Section total needs to be displayed in title
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let account = presenter.accounts[safe: section] else { return "???" }
+        let account = accounts.value[section]
         if rowCount(for: section) > 0 {
             return account.name
         } else {
@@ -76,8 +96,11 @@ class ExpenseListTVC: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // TODO: display expense detail
+    }
+    
     private func rowCount(for section: Int) -> Int {
-        guard let account = presenter.accounts[safe: section] else { return 0 }
-        return presenter.expenses[account.id!]?.count ?? 0
+        return presenter.expenses[accounts.value[section].id!]?.count ?? 0
     }
 }

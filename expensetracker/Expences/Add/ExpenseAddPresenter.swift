@@ -12,10 +12,6 @@ import RxGRDB
 
 class ExpenseAddPresenter {
     
-    var accounts: [AccountRecord] = []
-    var incomeCategories: [IncomeCategoryRecord] = []
-    var expenseCategories: [ExpenseCategoryRecord] = []
-
     var selectedAccount: AccountRecord?
     var selectedIncomeCategory: IncomeCategoryRecord?
     var selectedExpenseCategory: ExpenseCategoryRecord?

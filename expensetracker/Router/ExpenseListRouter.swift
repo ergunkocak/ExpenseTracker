@@ -10,25 +10,19 @@ import UIKit
 
 class ExpenseListRouter {
     
-    static func generateListVC(accounts: [AccountRecord], incomeCategories: [IncomeCategoryRecord], expenseCategories: [ExpenseCategoryRecord]) -> UINavigationController {
+    static func generateListVC() -> UINavigationController {
         let nav = UINavigationController()
         let tvc = ExpenseListTVC()
         let presenter = ExpenseListPresenter()
-        presenter.accounts = accounts
-        presenter.incomeCategories = incomeCategories
-        presenter.expenseCategories = expenseCategories
         tvc.presenter = presenter
         nav.viewControllers = [tvc]
         return nav
     }
     
-    static func showAddNew(from: UIViewController, accounts: [AccountRecord], incomeCategories: [IncomeCategoryRecord], expenseCategories: [ExpenseCategoryRecord]) {
+    static func showAddNew(from: UIViewController) {
         let nav = UINavigationController()
         let vc = ExpenseAddVC()
         let presenter = ExpenseAddPresenter()
-        presenter.accounts = accounts
-        presenter.incomeCategories = incomeCategories
-        presenter.expenseCategories = expenseCategories
         vc.presenter = presenter
         presenter.view = vc
         nav.viewControllers = [vc]
