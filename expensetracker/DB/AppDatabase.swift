@@ -6,8 +6,9 @@
 //  Copyright © 2020 ergunkocak. All rights reserved.
 //
 
-import Foundation
+import RxSwift
 import GRDB
+import RxGRDB
 
 /// A type responsible for initializing the application database.
 ///
@@ -92,4 +93,19 @@ struct AppDatabase {
         
         return migrator
     }
+    
+    static func loadAccountsRx() -> Observable<[AccountRecord]> {
+        return AccountRecord
+            .all()
+            .rx
+            .observeAll(in: dbQueue)
+    }
+    
+    static func loadExpenseCategoriesRx() -> Observable<[ExpenseCategoryRecord]> {
+        return ExpenseCategoryRecord
+            .all()
+            .rx
+            .observeAll(in: dbQueue)
+    }
+
 }

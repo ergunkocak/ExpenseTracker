@@ -8,7 +8,7 @@ import RxSwift
 
 class ExpenseListTVC: UITableViewController {
     
-    let presenter = ExpenseListPresenter()
+    var presenter: ExpenseListPresenter!
     
     private let disposeBag = DisposeBag()
     
@@ -46,7 +46,7 @@ class ExpenseListTVC: UITableViewController {
     }
     
     @objc func addNew() {
-        ExpenseListRouter.showAddNew(from: self)
+        ExpenseListRouter.showAddNew(from: self, accounts: presenter.accounts, expenseCategories: presenter.expenseCategories)
     }
     
     // MARK: Table Delegates

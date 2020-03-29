@@ -11,51 +11,31 @@ import RxGRDB
 class ExpenseListPresenter {
     
     var accounts: [AccountRecord] = [] // used to keep order
+    var expenseCategories: [ExpenseCategoryRecord] = []
     var expenses: [AccountRecord.ID: [ExpenseRecord]] = [:]
     var reloadRequired = BehaviorRelay<Bool>(value: false)
 
     private let disposeBag = DisposeBag()
 
     func load() {
-        loadAccountsRx()
+        let observables = accounts.map { [weak self] (record: AccountRecord) -> Observable<[ExpenseRecord]> in
+            guard let presenter = self else { return Observable.just([]) }
+            presenter.accounts = accounts
+            return presenter.loadExpencesRx(of: record.id!)
+        }
+        Observable.zip(observables)
             .subscribe(
-                onNext: { [weak self] (accounts: [AccountRecord]) in
+                onNext: { [weak self] (recordGroups: [[ExpenseRecord]]) in
                     guard let presenter = self else { return }
-                    let observables = accounts.map { [weak self] (record: AccountRecord) -> Observable<[ExpenseRecord]> in
-                        guard let presenter = self else { return Observable.just([]) }
-                        presenter.accounts = accounts
-                        return presenter.loadExpencesRx(of: record.id!)
+                    debugPrint(recordGroups)
+                    recordGroups.filter({ !$0.isEmpty }).forEach { (expenseGroup: [ExpenseRecord]) in
+                        let accountId = expenseGroup.first!.accountId
+                        presenter.expenses[accountId] = expenseGroup
                     }
-                    Observable.zip(observables)
-                        .subscribe(
-                            onNext: { [weak self] (recordGroups: [[ExpenseRecord]]) in
-                                guard let presenter = self else { return }
-                                debugPrint(recordGroups)
-                                recordGroups.filter({ !$0.isEmpty }).forEach { (expenseGroup: [ExpenseRecord]) in
-                                    let accountId = expenseGroup.first!.accountId
-                                    presenter.expenses[accountId] = expenseGroup
-                                }
-                                presenter.reloadRequired.accept(true)
-                            }
-                        )
-                        .disposed(by: presenter.disposeBag)
+                    presenter.reloadRequired.accept(true)
                 }
             )
             .disposed(by: disposeBag)
-//        let request: SQLRequest<Int> = "SELECT MAX(score) FROM player"
-//        request.rx
-//            .observeFirst(in: dbQueue)
-//            .subscribe(onNext: { (score: Int?) in
-//                print("Fresh maximum score: \(score)")
-//            })
-//            .disposed(by: disposeBag)
-    }
-    
-    func loadAccountsRx() -> Observable<[AccountRecord]> {
-        return AccountRecord
-            .all()
-            .rx
-            .observeAll(in: dbQueue)
     }
     
     func loadExpencesRx(of accountId: Int64) -> Observable<[ExpenseRecord]> {

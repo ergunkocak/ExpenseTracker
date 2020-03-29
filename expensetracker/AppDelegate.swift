@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 import GRDB
 
 // The shared database queue
@@ -16,6 +17,7 @@ var dbQueue: DatabaseQueue!
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    private let disposeBag = DisposeBag()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         try! setupDatabase(application)
@@ -31,15 +33,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func bootstrap() {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = generateTabBarVC()
-        window?.makeKeyAndVisible()
+        Observable
+            .zip(AppDatabase.loadAccountsRx(), AppDatabase.loadExpenseCategoriesRx())
+            .subscribe(
+                onNext: { (accounts: [AccountRecord], expenseCategories: [ExpenseCategoryRecord]) in
+                    self.window = UIWindow(frame: UIScreen.main.bounds)
+                    self.window?.rootViewController = self.generateTabBarVC(accounts: accounts, expenseCategories: expenseCategories)
+                    self.window?.makeKeyAndVisible()
+                }
+            )
+            .disposed(by: disposeBag)
     }
     
-    func generateTabBarVC() -> MainTBC {
+    func generateTabBarVC(accounts: [AccountRecord], expenseCategories: [ExpenseCategoryRecord]) -> MainTBC {
         let mainTBC = MainTBC()
         mainTBC.viewControllers = [
-            ExpenseListRouter.generateListVC(),
+            ExpenseListRouter.generateListVC(accounts: accounts, expenseCategories: expenseCategories),
             ReportRouter.generateMainVC()
         ]
         let tabHome = mainTBC.tabBar.items![0]

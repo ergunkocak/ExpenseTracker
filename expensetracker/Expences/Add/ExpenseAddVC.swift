@@ -11,6 +11,8 @@ import SnapKit
 
 class ExpenseAddVC: UIViewController {
     
+    var presenter: ExpenseAddPresenter!
+    
     lazy var typeSegment: UISegmentedControl = {
         let item = UISegmentedControl()
         item.insertSegment(withTitle: "add-type-income".localized(), at: 0, animated: false)
@@ -43,6 +45,8 @@ class ExpenseAddVC: UIViewController {
 
         item.inputAccessoryView = toolbar
         toolbar.sizeToFit()
+        
+        accountPicker.reloadAllComponents()
 
         return item
     }()
@@ -72,6 +76,8 @@ class ExpenseAddVC: UIViewController {
         item.inputAccessoryView = toolbar
         toolbar.sizeToFit()
 
+        categoryPicker.reloadAllComponents()
+
         return item
     }()
 
@@ -99,8 +105,10 @@ class ExpenseAddVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        accountPicker.reloadAllComponents()
-        categoryPicker.reloadAllComponents()
+//        accountPicker.reloadAllComponents()
+//        categoryPicker.reloadAllComponents()
+        debugPrint(presenter.accounts)
+        debugPrint(presenter.expenseCategories)
     }
     
     func setupNavigation() {
@@ -177,7 +185,12 @@ class ExpenseAddVC: UIViewController {
 
 extension ExpenseAddVC: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "test" // rowTitles[minValue + row]
+        if pickerView.tag == accountTag {
+            return presenter.accounts[row].name
+        } else if pickerView.tag == categoryTag {
+            return presenter.expenseCategories[row].name
+        }
+        return ""
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -192,9 +205,9 @@ extension ExpenseAddVC: UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag == accountTag {
-            return 4
-        } else if pickerView.tag == accountTag {
-            return 2
+            return presenter.accounts.count
+        } else if pickerView.tag == categoryTag {
+            return presenter.expenseCategories.count
         }
 
         return 0
@@ -205,21 +218,18 @@ extension ExpenseAddVC: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == accountInput {
-            debugPrint("editing account")
             categoryInput.resignFirstResponder()
             amountInput.resignFirstResponder()
             return
         }
         
         if textField == categoryInput {
-            debugPrint("editing category")
             accountInput.resignFirstResponder()
             amountInput.resignFirstResponder()
             return
         }
         
         if textField == amountInput {
-            debugPrint("editing amount")
             accountInput.resignFirstResponder()
             categoryInput.resignFirstResponder()
             return
