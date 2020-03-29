@@ -1,20 +1,45 @@
 PODS:
+  - GRDB.swift (4.12.0):
+    - GRDB.swift/standard (= 4.12.0)
+  - GRDB.swift/standard (4.12.0)
+  - RxCocoa (5.1.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxGRDB (0.18.0):
+    - RxGRDB/default (= 0.18.0)
+    - RxSwift (~> 5.0)
+  - RxGRDB/default (0.18.0):
+    - GRDB.swift (~> 4.1)
+    - RxSwift (~> 5.0)
+  - RxRelay (5.1.1):
+    - RxSwift (~> 5)
   - RxSwift (5.1.1)
   - SnapKit (5.0.0)
 
 DEPENDENCIES:
+  - GRDB.swift (= 4.12.0)
+  - RxCocoa (= 5.1.1)
+  - RxGRDB (= 0.18.0)
   - RxSwift (= 5.1.1)
   - SnapKit (= 5.0.0)
 
 SPEC REPOS:
   trunk:
+    - GRDB.swift
+    - RxCocoa
+    - RxGRDB
+    - RxRelay
     - RxSwift
     - SnapKit
 
 SPEC CHECKSUMS:
+  GRDB.swift: 0a48d51f7152fbe5eb702ce978864a55def0c586
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxGRDB: 41dfd8f987aad7a7bdd7c420319d3eb23ee383f3
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
 
-PODFILE CHECKSUM: a5daf8d1e5e5c8a00504fdbca11ba48302f93f1a
+PODFILE CHECKSUM: 842a2bbfa4c67d6995826b6d3b7b4283360fdf0c
 
 COCOAPODS: 1.9.1

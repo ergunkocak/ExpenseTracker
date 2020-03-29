@@ -3,10 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		191D22382430BCD300460162 /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191D22372430BCD300460162 /* AppDatabase.swift */; };
+		191D223B2430BD3A00460162 /* AccountRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191D223A2430BD3A00460162 /* AccountRecord.swift */; };
+		191D223D2430BD6A00460162 /* ExpenseCategoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191D223C2430BD6A00460162 /* ExpenseCategoryRecord.swift */; };
+		191D223F2430BD7E00460162 /* IncomeCategoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191D223E2430BD7E00460162 /* IncomeCategoryRecord.swift */; };
+		191D22412430BD9000460162 /* ExpenseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191D22402430BD9000460162 /* ExpenseRecord.swift */; };
+		199FC3382430C6DB00289F32 /* ListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199FC3372430C6DB00289F32 /* ListPresenter.swift */; };
+		199FC33A2430CA6400289F32 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199FC3392430CA6400289F32 /* Array.swift */; };
 		19B6567F2430ABEA00A0E34A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B6567E2430ABEA00A0E34A /* AppDelegate.swift */; };
 		19B656832430ABEA00A0E34A /* MainTBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B656822430ABEA00A0E34A /* MainTBC.swift */; };
 		19B656882430ABEB00A0E34A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19B656872430ABEB00A0E34A /* Assets.xcassets */; };
@@ -19,6 +26,7 @@
 		19BD5AE22430B266006C54D6 /* ReportRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BD5AE12430B266006C54D6 /* ReportRouter.swift */; };
 		19BD5AE72430B4A2006C54D6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BD5AE62430B4A2006C54D6 /* String.swift */; };
 		19BD5AEB2430B57B006C54D6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 19BD5AED2430B57B006C54D6 /* Localizable.strings */; };
+		19BD5AF02430BA8B006C54D6 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BD5AEF2430BA8B006C54D6 /* Config.swift */; };
 		28E761F151AFC43B3B49FD58 /* Pods_ExpenseTrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C20EE4AE92733903CA80C38 /* Pods_ExpenseTrackerTests.framework */; };
 		2C7067EE17E7EB1994CBA208 /* Pods_ExpenseTracker_ExpenseTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C4EC0F37680982E79BF05F5 /* Pods_ExpenseTracker_ExpenseTrackerUITests.framework */; };
 		4F9F5D81CC89457772B44283 /* Pods_ExpenseTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB1DA96515B37D711984546 /* Pods_ExpenseTracker.framework */; };
@@ -43,6 +51,13 @@
 
 /* Begin PBXFileReference section */
 		0AB55AEC5C8F5317BF8F86E4 /* Pods-ExpenseTracker-ExpenseTrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExpenseTracker-ExpenseTrackerUITests.debug.xcconfig"; path = "Target Support Files/Pods-ExpenseTracker-ExpenseTrackerUITests/Pods-ExpenseTracker-ExpenseTrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		191D22372430BCD300460162 /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
+		191D223A2430BD3A00460162 /* AccountRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRecord.swift; sourceTree = "<group>"; };
+		191D223C2430BD6A00460162 /* ExpenseCategoryRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseCategoryRecord.swift; sourceTree = "<group>"; };
+		191D223E2430BD7E00460162 /* IncomeCategoryRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeCategoryRecord.swift; sourceTree = "<group>"; };
+		191D22402430BD9000460162 /* ExpenseRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseRecord.swift; sourceTree = "<group>"; };
+		199FC3372430C6DB00289F32 /* ListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenter.swift; sourceTree = "<group>"; };
+		199FC3392430CA6400289F32 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		19B6567B2430ABEA00A0E34A /* ExpenseTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19B6567E2430ABEA00A0E34A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19B656822430ABEA00A0E34A /* MainTBC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTBC.swift; sourceTree = "<group>"; };
@@ -63,6 +78,7 @@
 		19BD5AE82430B4D2006C54D6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		19BD5AEC2430B57B006C54D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		19BD5AEE2430B583006C54D6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		19BD5AEF2430BA8B006C54D6 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		4DCF0BAB5939F147DCF8A821 /* Pods-ExpenseTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExpenseTracker.release.xcconfig"; path = "Target Support Files/Pods-ExpenseTracker/Pods-ExpenseTracker.release.xcconfig"; sourceTree = "<group>"; };
 		5C4EC0F37680982E79BF05F5 /* Pods_ExpenseTracker_ExpenseTrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ExpenseTracker_ExpenseTrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81F3FB512C0CCEC4B935A2EC /* Pods-ExpenseTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExpenseTracker.debug.xcconfig"; path = "Target Support Files/Pods-ExpenseTracker/Pods-ExpenseTracker.debug.xcconfig"; sourceTree = "<group>"; };
@@ -101,6 +117,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		191D22392430BCF100460162 /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				191D22372430BCD300460162 /* AppDatabase.swift */,
+				191D223A2430BD3A00460162 /* AccountRecord.swift */,
+				191D223C2430BD6A00460162 /* ExpenseCategoryRecord.swift */,
+				191D223E2430BD7E00460162 /* IncomeCategoryRecord.swift */,
+				191D22402430BD9000460162 /* ExpenseRecord.swift */,
+			);
+			path = DB;
+			sourceTree = "<group>";
+		};
 		19B656722430ABEA00A0E34A = {
 			isa = PBXGroup;
 			children = (
@@ -129,10 +157,12 @@
 				19B6567E2430ABEA00A0E34A /* AppDelegate.swift */,
 				19B656822430ABEA00A0E34A /* MainTBC.swift */,
 				19BD5ADE2430B1F6006C54D6 /* Router */,
+				191D22392430BCF100460162 /* DB */,
 				19BD5AD82430B181006C54D6 /* List */,
 				19BD5ADB2430B1BC006C54D6 /* Report */,
 				19BD5AE32430B3BA006C54D6 /* Extensions */,
 				19BD5AE52430B3F6006C54D6 /* Resources */,
+				19BD5AEF2430BA8B006C54D6 /* Config.swift */,
 			);
 			path = ExpenseTracker;
 			sourceTree = "<group>";
@@ -159,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				19BD5AD92430B19F006C54D6 /* ListTVC.swift */,
+				199FC3372430C6DB00289F32 /* ListPresenter.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -184,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				19BD5AE62430B4A2006C54D6 /* String.swift */,
+				199FC3392430CA6400289F32 /* Array.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -307,7 +339,7 @@
 				};
 			};
 			buildConfigurationList = 19B656762430ABEA00A0E34A /* Build configuration list for PBXProject "ExpenseTracker" */;
-			compatibilityVersion = "Xcode 11.4";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -462,13 +494,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				199FC3382430C6DB00289F32 /* ListPresenter.swift in Sources */,
+				191D223D2430BD6A00460162 /* ExpenseCategoryRecord.swift in Sources */,
+				191D22382430BCD300460162 /* AppDatabase.swift in Sources */,
 				19BD5ADA2430B19F006C54D6 /* ListTVC.swift in Sources */,
 				19B656832430ABEA00A0E34A /* MainTBC.swift in Sources */,
 				19BD5AE22430B266006C54D6 /* ReportRouter.swift in Sources */,
+				199FC33A2430CA6400289F32 /* Array.swift in Sources */,
+				191D223F2430BD7E00460162 /* IncomeCategoryRecord.swift in Sources */,
 				19BD5ADD2430B1CC006C54D6 /* ReportVC.swift in Sources */,
 				19BD5AE72430B4A2006C54D6 /* String.swift in Sources */,
+				19BD5AF02430BA8B006C54D6 /* Config.swift in Sources */,
 				19BD5AE02430B209006C54D6 /* ListRouter.swift in Sources */,
+				191D223B2430BD3A00460162 /* AccountRecord.swift in Sources */,
 				19B6567F2430ABEA00A0E34A /* AppDelegate.swift in Sources */,
+				191D22412430BD9000460162 /* ExpenseRecord.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

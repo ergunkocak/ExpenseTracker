@@ -5,7 +5,10 @@ use_frameworks!
 
 def common_pods
   pod 'RxSwift', '5.1.1'
+  pod 'RxCocoa', '5.1.1'
   pod 'SnapKit', '5.0.0'
+  pod 'GRDB.swift', '4.12.0'
+  pod 'RxGRDB', '0.18.0'
 end
 
 target 'ExpenseTracker' do
