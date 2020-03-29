@@ -12,7 +12,6 @@ import GRDB
 struct ExpenseRecord {
     // Prefer Int64 for auto-incremented database ids
     var id: Int64?
-    var name: String?
     var accountId: Int64
     var expenseCategoryId: Int64?
     var incomeCategoryId: Int64?
@@ -33,7 +32,6 @@ extension ExpenseRecord: Codable, FetchableRecord, MutablePersistableRecord {
     // Define database columns from CodingKeys
     private enum Columns {
         static let id = Column(CodingKeys.id)
-        static let name = Column(CodingKeys.name)
         static let accountId = Column(CodingKeys.accountId)
         static let expenseCategoryId = Column(CodingKeys.expenseCategoryId)
         static let incomeCategoryId = Column(CodingKeys.incomeCategoryId)

@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxCocoa
+import RxGRDB
 
 class ExpenseAddPresenter {
     
@@ -19,11 +20,26 @@ class ExpenseAddPresenter {
     var selectedIncomeCategory: IncomeCategoryRecord?
     var selectedExpenseCategory: ExpenseCategoryRecord?
     var amountRx = BehaviorRelay<Int64>(value: 0)
+
+    var view: ExpenseAddProtocol?
+    
+    private let disposeBag = DisposeBag()
+    
+    init() {
+        let request = ExpenseRecord.all()
+        request.rx.changes(in: dbQueue)
+            .subscribe(
+                onNext: { [weak self] (_) in
+                    guard let presenter = self else { return }
+                    debugPrint("Expenses have changed.")
+                    presenter.view?.dismiss()
+                }
+        ).disposed(by: disposeBag)
+    }
     
     func addIncome() {
         var income = ExpenseRecord(
             id: nil,
-            name: nil,
             accountId: selectedAccount!.id!,
             expenseCategoryId: nil,
             incomeCategoryId: selectedIncomeCategory?.id,
@@ -37,17 +53,18 @@ class ExpenseAddPresenter {
                     try income.insert(db)
                 } catch {
                     // TODO: display error
+                    debugPrint(error)
                 }
             }
         } catch {
             // TODO: display error
+            debugPrint(error)
         }
     }
     
     func addExpense() {
         var expense = ExpenseRecord(
             id: nil,
-            name: nil,
             accountId: selectedAccount!.id!,
             expenseCategoryId: selectedExpenseCategory?.id,
             incomeCategoryId: nil,
@@ -61,10 +78,12 @@ class ExpenseAddPresenter {
                     try expense.insert(db)
                 } catch {
                     // TODO: display error
+                    debugPrint(error)
                 }
             }
         } catch {
             // TODO: display error
+            debugPrint(error)
         }
     }
 

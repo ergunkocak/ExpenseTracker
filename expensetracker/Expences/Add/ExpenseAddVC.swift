@@ -10,8 +10,12 @@ import UIKit
 import SnapKit
 import RxSwift
 
-class ExpenseAddVC: UIViewController {
-    
+protocol ExpenseAddProtocol {
+    func dismiss()
+}
+
+class ExpenseAddVC: UIViewController, ExpenseAddProtocol {
+
     var presenter: ExpenseAddPresenter!
     
     lazy var typeSegment: UISegmentedControl = {
@@ -245,12 +249,10 @@ class ExpenseAddVC: UIViewController {
     }
     
     @objc func onDone() {
-        // TODO: verify form
-        // TODO: save
-        dismiss()
+        save()
     }
     
-    private func dismiss() {
+    func dismiss() {
         view.endEditing(true)
         navigationController?.dismiss(animated: true, completion: {
             //
@@ -276,39 +278,39 @@ class ExpenseAddVC: UIViewController {
 
     // MARK: Form related
     
-    func save() -> Bool {
-        guard typeSegment.isSelected else {
+    func save() {
+        guard !typeSegment.isSelected else {
             alertError(from: self, message: "add-error-required-type".localized())
-            return false
+            return
         }
         
         guard nil != presenter.selectedAccount else {
             alertError(from: self, message: "add-error-required-account".localized())
-            return false
+            return
         }
         
         if typeSegment.selectedSegmentIndex == 0 {
             guard nil != presenter.selectedIncomeCategory else {
                 alertError(from: self, message: "add-error-required-income-category".localized())
-                return false
+                return
             }
             
         } else {
             guard nil != presenter.selectedExpenseCategory else {
                 alertError(from: self, message: "add-error-required-expense-category".localized())
-                return false
+                return
             }
             
         }
         
         guard !(amountInput.text ?? "").isEmpty else {
             alertError(from: self, message: "add-error-required-amount".localized())
-            return false
+            return
         }
         
         guard presenter.amountRx.value > 0 else {
             alertError(from: self, message: "add-error-invalid-amount".localized())
-            return false
+            return
         }
         
         if typeSegment.selectedSegmentIndex == 0 {
@@ -316,8 +318,6 @@ class ExpenseAddVC: UIViewController {
         } else {
             presenter.addExpense()
         }
-        
-        return true
     }
     
     

@@ -30,6 +30,7 @@ class ExpenseListRouter {
         presenter.incomeCategories = incomeCategories
         presenter.expenseCategories = expenseCategories
         vc.presenter = presenter
+        presenter.view = vc
         nav.viewControllers = [vc]
         nav.modalPresentationStyle = .overFullScreen
         from.present(nav, animated: true) {

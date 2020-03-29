@@ -18,6 +18,10 @@ class ExpenseListTVC: UITableViewController {
         setupNavigation()
         setupTable()
         setupBindings()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         presenter.load()
     }
     
