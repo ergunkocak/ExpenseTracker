@@ -49,20 +49,6 @@ struct AppDatabase {
             })
         }
         
-        migrator.registerMigration("v0_ExpenseCategory") { db in
-            // Create a table
-            try db.create(table: ExpenseCategoryRecord.databaseTableName) { t in
-                t.autoIncrementedPrimaryKey("id")
-                t.column("name", .text).notNull()
-            }
-            // Populate inital data
-            let records: [String] = ["Tax", "Grocery", "Entertainment", "Gym", "Health"]
-            try records.forEach({ (name) in
-                var record = ExpenseCategoryRecord(id: nil, name: name)
-                try record.insert(db)
-            })
-        }
-        
         migrator.registerMigration("v0_IncomeCategory") { db in
             // Create a table
             try db.create(table: IncomeCategoryRecord.databaseTableName) { t in
@@ -71,6 +57,20 @@ struct AppDatabase {
             }
             // Populate inital data
             let records: [String] = ["Salary", "Dividents"]
+            try records.forEach({ (name) in
+                var record = IncomeCategoryRecord(id: nil, name: name)
+                try record.insert(db)
+            })
+        }
+        
+        migrator.registerMigration("v0_ExpenseCategory") { db in
+            // Create a table
+            try db.create(table: ExpenseCategoryRecord.databaseTableName) { t in
+                t.autoIncrementedPrimaryKey("id")
+                t.column("name", .text).notNull()
+            }
+            // Populate inital data
+            let records: [String] = ["Tax", "Grocery", "Entertainment", "Gym", "Health"]
             try records.forEach({ (name) in
                 var record = ExpenseCategoryRecord(id: nil, name: name)
                 try record.insert(db)
@@ -100,6 +100,13 @@ struct AppDatabase {
     
     static func loadAccountsRx() -> Observable<[AccountRecord]> {
         return AccountRecord
+            .all()
+            .rx
+            .observeAll(in: dbQueue)
+    }
+    
+    static func loadIncomeCategoriesRx() -> Observable<[IncomeCategoryRecord]> {
+        return IncomeCategoryRecord
             .all()
             .rx
             .observeAll(in: dbQueue)

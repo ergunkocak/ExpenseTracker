@@ -34,21 +34,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func bootstrap() {
         Observable
-            .zip(AppDatabase.loadAccountsRx(), AppDatabase.loadExpenseCategoriesRx())
+            .zip(AppDatabase.loadAccountsRx(), AppDatabase.loadIncomeCategoriesRx(), AppDatabase.loadExpenseCategoriesRx())
             .subscribe(
-                onNext: { (accounts: [AccountRecord], expenseCategories: [ExpenseCategoryRecord]) in
+                onNext: { (accounts: [AccountRecord], incomeCategories: [IncomeCategoryRecord], expenseCategories: [ExpenseCategoryRecord]) in
                     self.window = UIWindow(frame: UIScreen.main.bounds)
-                    self.window?.rootViewController = self.generateTabBarVC(accounts: accounts, expenseCategories: expenseCategories)
+                    self.window?.rootViewController = self.generateTabBarVC(accounts: accounts, incomeCategories: incomeCategories, expenseCategories: expenseCategories)
                     self.window?.makeKeyAndVisible()
                 }
             )
             .disposed(by: disposeBag)
     }
     
-    func generateTabBarVC(accounts: [AccountRecord], expenseCategories: [ExpenseCategoryRecord]) -> MainTBC {
+    func generateTabBarVC(accounts: [AccountRecord], incomeCategories: [IncomeCategoryRecord], expenseCategories: [ExpenseCategoryRecord]) -> MainTBC {
         let mainTBC = MainTBC()
         mainTBC.viewControllers = [
-            ExpenseListRouter.generateListVC(accounts: accounts, expenseCategories: expenseCategories),
+            ExpenseListRouter.generateListVC(accounts: accounts, incomeCategories: incomeCategories, expenseCategories: expenseCategories),
             ReportRouter.generateMainVC()
         ]
         let tabHome = mainTBC.tabBar.items![0]

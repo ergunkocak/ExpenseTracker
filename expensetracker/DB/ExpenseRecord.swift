@@ -12,12 +12,12 @@ import GRDB
 struct ExpenseRecord {
     // Prefer Int64 for auto-incremented database ids
     var id: Int64?
-    var name: String
+    var name: String?
     var accountId: Int64
     var expenseCategoryId: Int64?
     var incomeCategoryId: Int64?
     var amount: Int64
-    var createdTS: TimeInterval
+    var createdTS: TimeInterval?
 }
 
 // Hashable conformance supports tableView diffing

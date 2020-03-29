@@ -46,7 +46,7 @@ class ExpenseListTVC: UITableViewController {
     }
     
     @objc func addNew() {
-        ExpenseListRouter.showAddNew(from: self, accounts: presenter.accounts, expenseCategories: presenter.expenseCategories)
+        ExpenseListRouter.showAddNew(from: self, accounts: presenter.accounts, incomeCategories: presenter.incomeCategories, expenseCategories: presenter.expenseCategories)
     }
     
     // MARK: Table Delegates

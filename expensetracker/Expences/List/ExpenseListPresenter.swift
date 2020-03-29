@@ -11,6 +11,7 @@ import RxGRDB
 class ExpenseListPresenter {
     
     var accounts: [AccountRecord] = [] // used to keep order
+    var incomeCategories: [IncomeCategoryRecord] = []
     var expenseCategories: [ExpenseCategoryRecord] = []
     var expenses: [AccountRecord.ID: [ExpenseRecord]] = [:]
     var reloadRequired = BehaviorRelay<Bool>(value: false)

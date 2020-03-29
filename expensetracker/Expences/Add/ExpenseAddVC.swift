@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 class ExpenseAddVC: UIViewController {
     
@@ -51,36 +52,78 @@ class ExpenseAddVC: UIViewController {
         return item
     }()
 
-    lazy var categoryPicker: UIPickerView = {
+    lazy var incomeCategoryPicker: UIPickerView = {
         let item = UIPickerView()
         item.delegate = self
         item.dataSource = self
         item.showsSelectionIndicator = true
-        item.tag = categoryTag
+        item.tag = incomeCategoryTag
         return item
     }()
     
-    lazy var categoryInput: UITextField = {
+    lazy var incomeCategoryToolbar: UIToolbar = {
         let toolbar = UIToolbar()
         toolbar.isTranslucent = false
-        let doneButton = UIBarButtonItem(title: "add-done".localized(), style: .plain, target: self, action: #selector(onCategoryPickerDone))
+        let doneButton = UIBarButtonItem(title: "add-done".localized(), style: .plain, target: self, action: #selector(onIncomeCategoryPickerDone))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         toolbar.items = [flexSpace, doneButton]
-        
+        toolbar.sizeToFit()
+        return toolbar
+    }()
+    
+    lazy var incomeCategoryInput: UITextField = {
+
         let item = UITextField()
         item.delegate = self
         item.placeholder = "add-category-input-placeholder".localized()
         item.borderStyle = .roundedRect
-        item.inputView = categoryPicker
+        
+        item.inputView = incomeCategoryPicker
+        item.inputAccessoryView = incomeCategoryToolbar
 
-        item.inputAccessoryView = toolbar
+        return item
+    }()
+    
+    lazy var expenseCategoryPicker: UIPickerView = {
+        let item = UIPickerView()
+        item.delegate = self
+        item.dataSource = self
+        item.showsSelectionIndicator = true
+        item.tag = expenseCategoryTag
+        return item
+    }()
+    
+    lazy var expenseCategoryToolbar: UIToolbar = {
+        let toolbar = UIToolbar()
+        toolbar.isTranslucent = false
+        let doneButton = UIBarButtonItem(title: "add-done".localized(), style: .plain, target: self, action: #selector(onExpenseCategoryPickerDone))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        toolbar.items = [flexSpace, doneButton]
         toolbar.sizeToFit()
-
-        categoryPicker.reloadAllComponents()
+        return toolbar
+    }()
+    
+    lazy var expenseCategoryInput: UITextField = {
+        let item = UITextField()
+        item.delegate = self
+        item.placeholder = "add-category-input-placeholder".localized()
+        item.borderStyle = .roundedRect
+        
+        item.inputView = expenseCategoryPicker
+        item.inputAccessoryView = expenseCategoryToolbar
 
         return item
     }()
 
+    lazy var categoryStack: UIStackView = {
+        let item = UIStackView()
+        item.axis = .vertical
+        item.addArrangedSubview(incomeCategoryInput)
+        item.addArrangedSubview(expenseCategoryInput)
+        expenseCategoryInput.isHidden = true
+        return item
+    }()
+        
     lazy var amountInput: UITextField = {
         let item = UITextField()
         item.delegate = self
@@ -93,7 +136,9 @@ class ExpenseAddVC: UIViewController {
     private let sideMargin: CGFloat = 16
     private let verticalSpacingForInputs: CGFloat = 16
     private let accountTag: Int = 100
-    private let categoryTag: Int = 200
+    private let incomeCategoryTag: Int = 200
+    private let expenseCategoryTag: Int = 300
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,14 +146,13 @@ class ExpenseAddVC: UIViewController {
         view.backgroundColor = .white
         setupNavigation()
         setupLayout()
+        setupBindings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        accountPicker.reloadAllComponents()
-//        categoryPicker.reloadAllComponents()
-        debugPrint(presenter.accounts)
-        debugPrint(presenter.expenseCategories)
+        incomeCategoryPicker.reloadAllComponents()
+        expenseCategoryPicker.reloadAllComponents()
     }
     
     func setupNavigation() {
@@ -124,7 +168,7 @@ class ExpenseAddVC: UIViewController {
         [
             typeSegment,
             accountInput,
-            categoryInput,
+            categoryStack,
             amountInput
         ].forEach(view.addSubview(_:))
         
@@ -140,20 +184,61 @@ class ExpenseAddVC: UIViewController {
             make.height.equalTo(44)
         }
         
-        categoryInput.snp.makeConstraints { make in
-            make.top.equalTo(accountInput.snp.bottom).offset(verticalSpacingForInputs)
-            make.leading.equalToSuperview().offset(sideMargin)
-            make.trailing.equalToSuperview().offset(-sideMargin)
+        incomeCategoryInput.snp.makeConstraints { make in
             make.height.equalTo(44)
         }
         
+        expenseCategoryInput.snp.makeConstraints { make in
+            make.height.equalTo(44)
+        }
+        
+        categoryStack.snp.makeConstraints { make in
+            make.top.equalTo(accountInput.snp.bottom).offset(verticalSpacingForInputs)
+            make.leading.equalToSuperview().offset(sideMargin)
+            make.trailing.equalToSuperview().offset(-sideMargin)
+        }
+        
         amountInput.snp.makeConstraints { make in
-            make.top.equalTo(categoryInput.snp.bottom).offset(verticalSpacingForInputs)
+            make.top.equalTo(categoryStack.snp.bottom).offset(verticalSpacingForInputs)
             make.leading.equalToSuperview().offset(sideMargin)
             make.trailing.equalToSuperview().offset(-sideMargin)
             make.height.equalTo(44)
         }
     }
+    
+    func setupBindings() {
+        amountInput.rx.text.distinctUntilChanged()
+            .subscribe(
+                onNext: { [weak self] (amount: String?) in
+                    guard let vc = self else { return }
+                    guard let _amount = amount, !_amount.isEmpty else { return }
+                    
+                    // TODO: check locale decimal seperator
+                    
+                    let amountNumber = NSDecimalNumber(string: _amount)
+                    vc.presenter.amountRx.accept(amountNumber.multiplying(byPowerOf10: 2).int64Value)
+                }
+            )
+        .disposed(by: disposeBag)
+        
+        typeSegment.rx.selectedSegmentIndex.distinctUntilChanged()
+            .subscribe(
+                onNext: { [weak self] (selectedIndex: Int) in
+                    guard let vc = self else { return }
+                    if selectedIndex == 0 {
+                        vc.incomeCategoryInput.isHidden = false
+                        vc.expenseCategoryInput.isHidden = true
+                    } else {
+                        vc.incomeCategoryInput.isHidden = true
+                        vc.expenseCategoryInput.isHidden = false
+                    }
+                    vc.view.endEditing(true)
+                }
+            )
+        .disposed(by: disposeBag)
+    }
+    
+    // MARK: Main navigation
     
     @objc func onCancel() {
         dismiss()
@@ -166,35 +251,104 @@ class ExpenseAddVC: UIViewController {
     }
     
     private func dismiss() {
+        view.endEditing(true)
         navigationController?.dismiss(animated: true, completion: {
             //
         })
     }
+    
+    // MARK: Picker Actions
     
     @objc func onAccountPickerDone() {
         accountPicker.resignFirstResponder()
         accountInput.resignFirstResponder()
     }
     
-    @objc func onCategoryPickerDone() {
-        categoryPicker.resignFirstResponder()
-        categoryInput.resignFirstResponder()
+    @objc func onIncomeCategoryPickerDone() {
+        incomeCategoryPicker.resignFirstResponder()
+        incomeCategoryInput.resignFirstResponder()
     }
 
+    @objc func onExpenseCategoryPickerDone() {
+        expenseCategoryPicker.resignFirstResponder()
+        expenseCategoryInput.resignFirstResponder()
+    }
+
+    // MARK: Form related
+    
+    func save() -> Bool {
+        guard typeSegment.isSelected else {
+            alertError(from: self, message: "add-error-required-type".localized())
+            return false
+        }
+        
+        guard nil != presenter.selectedAccount else {
+            alertError(from: self, message: "add-error-required-account".localized())
+            return false
+        }
+        
+        if typeSegment.selectedSegmentIndex == 0 {
+            guard nil != presenter.selectedIncomeCategory else {
+                alertError(from: self, message: "add-error-required-income-category".localized())
+                return false
+            }
+            
+        } else {
+            guard nil != presenter.selectedExpenseCategory else {
+                alertError(from: self, message: "add-error-required-expense-category".localized())
+                return false
+            }
+            
+        }
+        
+        guard !(amountInput.text ?? "").isEmpty else {
+            alertError(from: self, message: "add-error-required-amount".localized())
+            return false
+        }
+        
+        guard presenter.amountRx.value > 0 else {
+            alertError(from: self, message: "add-error-invalid-amount".localized())
+            return false
+        }
+        
+        if typeSegment.selectedSegmentIndex == 0 {
+            presenter.addIncome()
+        } else {
+            presenter.addExpense()
+        }
+        
+        return true
+    }
+    
+    
 }
 
 extension ExpenseAddVC: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView.tag == accountTag {
             return presenter.accounts[row].name
-        } else if pickerView.tag == categoryTag {
+        } else if pickerView.tag == incomeCategoryTag {
+            return presenter.incomeCategories[row].name
+        } else if pickerView.tag == expenseCategoryTag {
             return presenter.expenseCategories[row].name
         }
         return ""
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // TODO:
+        if pickerView.tag == accountTag {
+            let account = presenter.accounts[row]
+            presenter.selectedAccount = account
+            accountInput.text = account.name
+        } else if pickerView.tag == incomeCategoryTag {
+            let incomeCategory = presenter.incomeCategories[row]
+            presenter.selectedIncomeCategory = incomeCategory
+            incomeCategoryInput.text = incomeCategory.name
+        } else if pickerView.tag == expenseCategoryTag {
+            let expenseCategory = presenter.expenseCategories[row]
+            presenter.selectedExpenseCategory = expenseCategory
+            expenseCategoryInput.text = expenseCategory.name
+        }
     }
 }
 
@@ -206,7 +360,9 @@ extension ExpenseAddVC: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag == accountTag {
             return presenter.accounts.count
-        } else if pickerView.tag == categoryTag {
+        } else if pickerView.tag == incomeCategoryTag {
+            return presenter.incomeCategories.count
+        } else if pickerView.tag == expenseCategoryTag {
             return presenter.expenseCategories.count
         }
 
@@ -218,22 +374,56 @@ extension ExpenseAddVC: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == accountInput {
-            categoryInput.resignFirstResponder()
+            incomeCategoryInput.resignFirstResponder()
+            expenseCategoryInput.resignFirstResponder()
             amountInput.resignFirstResponder()
             return
         }
         
-        if textField == categoryInput {
+        if textField == incomeCategoryInput {
             accountInput.resignFirstResponder()
+            expenseCategoryInput.resignFirstResponder()
+            amountInput.resignFirstResponder()
+            return
+        }
+        
+        if textField == expenseCategoryInput {
+            accountInput.resignFirstResponder()
+            incomeCategoryInput.resignFirstResponder()
             amountInput.resignFirstResponder()
             return
         }
         
         if textField == amountInput {
             accountInput.resignFirstResponder()
-            categoryInput.resignFirstResponder()
+            incomeCategoryInput.resignFirstResponder()
+            expenseCategoryInput.resignFirstResponder()
             return
         }
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard textField == amountInput else { return true }
+        let decimalSeperator = Locale.current.decimalSeparator ?? "."
+        if string == decimalSeperator {
+            if textField.text!.contains(decimalSeperator) {
+                return false
+            }
+            if textField.text!.isEmpty {
+                return false
+            }
+        }
+        
+        let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        if newString.contains(decimalSeperator) {
+            let numberParts = newString.split(separator: decimalSeperator.first!)
+            if let newDecimalCount = numberParts.last?.count, numberParts.count == 2 {
+                if newDecimalCount > 2 {
+                    return false
+                }
+            }
+        }
+        
+        return true
+    }
 }

@@ -10,3 +10,12 @@
 "add-account-input-placeholder" = "Select account";
 "add-category-input-placeholder" = "Select category";
 "add-amount-input-placeholder" = "Enter amount";
+"add-error-required-type" = "Please select expense type.";
+"add-error-required-account" = "Please select account to add expense to.";
+"add-error-required-income-category" = "Please select income category.";
+"add-error-required-expense-category" = "Please select expense category.";
+"add-error-required-amount" = "Please fill amount of expense.";
+"add-error-invalid-amount" = "Please fill a valid amount value.";
+
+"alert-error-title" = "Error";
+"alert-error-ok" = "Ok";
