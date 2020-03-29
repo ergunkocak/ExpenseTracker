@@ -81,7 +81,7 @@ struct AppDatabase {
             // Create a table
             try db.create(table: ExpenseRecord.databaseTableName) { t in
                 t.autoIncrementedPrimaryKey("id")
-                t.column("accountId", .text).notNull()
+                t.column("accountId", .integer).notNull()
                 t.column("expenseCategoryId", .integer)
                 t.column("incomeCategoryId", .integer)
                 t.column("amount", .integer).notNull()
