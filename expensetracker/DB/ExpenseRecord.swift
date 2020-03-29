@@ -16,7 +16,7 @@ struct ExpenseRecord {
     var accountId: Int64
     var expenseCategoryId: Int64?
     var incomeCategoryId: Int64?
-    var amount: Decimal
+    var amount: Int64
     var createdTS: TimeInterval
 }
 

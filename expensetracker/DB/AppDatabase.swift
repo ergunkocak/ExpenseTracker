@@ -83,6 +83,10 @@ struct AppDatabase {
                 t.autoIncrementedPrimaryKey("id")
                 t.column("name", .text).notNull()
                 t.column("accountId", .text).notNull()
+                t.column("expenseCategoryId", .integer)
+                t.column("incomeCategoryId", .integer)
+                t.column("amount", .integer).notNull()
+                t.column("createdTS", .integer).notNull()
             }
         }
 
