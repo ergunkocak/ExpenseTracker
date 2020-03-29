@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func generateTabBarVC() -> MainTBC {
         let mainTBC = MainTBC()
         mainTBC.viewControllers = [
-            ListRouter.generateListVC(),
+            ExpenseListRouter.generateListVC(),
             ReportRouter.generateMainVC()
         ]
         let tabHome = mainTBC.tabBar.items![0]

@@ -12,17 +12,18 @@
 		191D223D2430BD6A00460162 /* ExpenseCategoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191D223C2430BD6A00460162 /* ExpenseCategoryRecord.swift */; };
 		191D223F2430BD7E00460162 /* IncomeCategoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191D223E2430BD7E00460162 /* IncomeCategoryRecord.swift */; };
 		191D22412430BD9000460162 /* ExpenseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191D22402430BD9000460162 /* ExpenseRecord.swift */; };
-		199FC3382430C6DB00289F32 /* ListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199FC3372430C6DB00289F32 /* ListPresenter.swift */; };
+		199FC3382430C6DB00289F32 /* ExpenseListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199FC3372430C6DB00289F32 /* ExpenseListPresenter.swift */; };
 		199FC33A2430CA6400289F32 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199FC3392430CA6400289F32 /* Array.swift */; };
+		199FC33E2430DA5200289F32 /* ExpenseAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199FC33D2430DA5200289F32 /* ExpenseAddVC.swift */; };
 		19B6567F2430ABEA00A0E34A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B6567E2430ABEA00A0E34A /* AppDelegate.swift */; };
 		19B656832430ABEA00A0E34A /* MainTBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B656822430ABEA00A0E34A /* MainTBC.swift */; };
 		19B656882430ABEB00A0E34A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19B656872430ABEB00A0E34A /* Assets.xcassets */; };
 		19B6568B2430ABEB00A0E34A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19B656892430ABEB00A0E34A /* LaunchScreen.storyboard */; };
 		19B656962430ABEB00A0E34A /* ExpenseTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B656952430ABEB00A0E34A /* ExpenseTrackerTests.swift */; };
 		19B656A12430ABEB00A0E34A /* ExpenseTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B656A02430ABEB00A0E34A /* ExpenseTrackerUITests.swift */; };
-		19BD5ADA2430B19F006C54D6 /* ListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BD5AD92430B19F006C54D6 /* ListTVC.swift */; };
+		19BD5ADA2430B19F006C54D6 /* ExpenseListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BD5AD92430B19F006C54D6 /* ExpenseListTVC.swift */; };
 		19BD5ADD2430B1CC006C54D6 /* ReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BD5ADC2430B1CC006C54D6 /* ReportVC.swift */; };
-		19BD5AE02430B209006C54D6 /* ListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BD5ADF2430B209006C54D6 /* ListRouter.swift */; };
+		19BD5AE02430B209006C54D6 /* ExpenseListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BD5ADF2430B209006C54D6 /* ExpenseListRouter.swift */; };
 		19BD5AE22430B266006C54D6 /* ReportRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BD5AE12430B266006C54D6 /* ReportRouter.swift */; };
 		19BD5AE72430B4A2006C54D6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BD5AE62430B4A2006C54D6 /* String.swift */; };
 		19BD5AEB2430B57B006C54D6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 19BD5AED2430B57B006C54D6 /* Localizable.strings */; };
@@ -56,8 +57,9 @@
 		191D223C2430BD6A00460162 /* ExpenseCategoryRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseCategoryRecord.swift; sourceTree = "<group>"; };
 		191D223E2430BD7E00460162 /* IncomeCategoryRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeCategoryRecord.swift; sourceTree = "<group>"; };
 		191D22402430BD9000460162 /* ExpenseRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseRecord.swift; sourceTree = "<group>"; };
-		199FC3372430C6DB00289F32 /* ListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenter.swift; sourceTree = "<group>"; };
+		199FC3372430C6DB00289F32 /* ExpenseListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListPresenter.swift; sourceTree = "<group>"; };
 		199FC3392430CA6400289F32 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		199FC33D2430DA5200289F32 /* ExpenseAddVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddVC.swift; sourceTree = "<group>"; };
 		19B6567B2430ABEA00A0E34A /* ExpenseTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19B6567E2430ABEA00A0E34A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19B656822430ABEA00A0E34A /* MainTBC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTBC.swift; sourceTree = "<group>"; };
@@ -70,9 +72,9 @@
 		19B6569C2430ABEB00A0E34A /* ExpenseTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExpenseTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		19B656A02430ABEB00A0E34A /* ExpenseTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTrackerUITests.swift; sourceTree = "<group>"; };
 		19B656A22430ABEB00A0E34A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		19BD5AD92430B19F006C54D6 /* ListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTVC.swift; sourceTree = "<group>"; };
+		19BD5AD92430B19F006C54D6 /* ExpenseListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListTVC.swift; sourceTree = "<group>"; };
 		19BD5ADC2430B1CC006C54D6 /* ReportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportVC.swift; sourceTree = "<group>"; };
-		19BD5ADF2430B209006C54D6 /* ListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRouter.swift; sourceTree = "<group>"; };
+		19BD5ADF2430B209006C54D6 /* ExpenseListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListRouter.swift; sourceTree = "<group>"; };
 		19BD5AE12430B266006C54D6 /* ReportRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportRouter.swift; sourceTree = "<group>"; };
 		19BD5AE62430B4A2006C54D6 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		19BD5AE82430B4D2006C54D6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -129,6 +131,23 @@
 			path = DB;
 			sourceTree = "<group>";
 		};
+		199FC33B2430DA2200289F32 /* Expences */ = {
+			isa = PBXGroup;
+			children = (
+				19BD5AD82430B181006C54D6 /* List */,
+				199FC33C2430DA3A00289F32 /* Add */,
+			);
+			path = Expences;
+			sourceTree = "<group>";
+		};
+		199FC33C2430DA3A00289F32 /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				199FC33D2430DA5200289F32 /* ExpenseAddVC.swift */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
 		19B656722430ABEA00A0E34A = {
 			isa = PBXGroup;
 			children = (
@@ -158,7 +177,7 @@
 				19B656822430ABEA00A0E34A /* MainTBC.swift */,
 				19BD5ADE2430B1F6006C54D6 /* Router */,
 				191D22392430BCF100460162 /* DB */,
-				19BD5AD82430B181006C54D6 /* List */,
+				199FC33B2430DA2200289F32 /* Expences */,
 				19BD5ADB2430B1BC006C54D6 /* Report */,
 				19BD5AE32430B3BA006C54D6 /* Extensions */,
 				19BD5AE52430B3F6006C54D6 /* Resources */,
@@ -188,8 +207,8 @@
 		19BD5AD82430B181006C54D6 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				19BD5AD92430B19F006C54D6 /* ListTVC.swift */,
-				199FC3372430C6DB00289F32 /* ListPresenter.swift */,
+				19BD5AD92430B19F006C54D6 /* ExpenseListTVC.swift */,
+				199FC3372430C6DB00289F32 /* ExpenseListPresenter.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -205,7 +224,7 @@
 		19BD5ADE2430B1F6006C54D6 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				19BD5ADF2430B209006C54D6 /* ListRouter.swift */,
+				19BD5ADF2430B209006C54D6 /* ExpenseListRouter.swift */,
 				19BD5AE12430B266006C54D6 /* ReportRouter.swift */,
 			);
 			path = Router;
@@ -494,18 +513,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				199FC3382430C6DB00289F32 /* ListPresenter.swift in Sources */,
+				199FC3382430C6DB00289F32 /* ExpenseListPresenter.swift in Sources */,
 				191D223D2430BD6A00460162 /* ExpenseCategoryRecord.swift in Sources */,
 				191D22382430BCD300460162 /* AppDatabase.swift in Sources */,
-				19BD5ADA2430B19F006C54D6 /* ListTVC.swift in Sources */,
+				19BD5ADA2430B19F006C54D6 /* ExpenseListTVC.swift in Sources */,
 				19B656832430ABEA00A0E34A /* MainTBC.swift in Sources */,
 				19BD5AE22430B266006C54D6 /* ReportRouter.swift in Sources */,
 				199FC33A2430CA6400289F32 /* Array.swift in Sources */,
+				199FC33E2430DA5200289F32 /* ExpenseAddVC.swift in Sources */,
 				191D223F2430BD7E00460162 /* IncomeCategoryRecord.swift in Sources */,
 				19BD5ADD2430B1CC006C54D6 /* ReportVC.swift in Sources */,
 				19BD5AE72430B4A2006C54D6 /* String.swift in Sources */,
 				19BD5AF02430BA8B006C54D6 /* Config.swift in Sources */,
-				19BD5AE02430B209006C54D6 /* ListRouter.swift in Sources */,
+				19BD5AE02430B209006C54D6 /* ExpenseListRouter.swift in Sources */,
 				191D223B2430BD3A00460162 /* AccountRecord.swift in Sources */,
 				19B6567F2430ABEA00A0E34A /* AppDelegate.swift in Sources */,
 				191D22412430BD9000460162 /* ExpenseRecord.swift in Sources */,

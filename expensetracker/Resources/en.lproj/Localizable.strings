@@ -1,3 +1,12 @@
 "language" = "en";
 "tab-list" = "Expenses";
 "tab-report" = "Report";
+"list-page-title" = "Dashboard";
+"add-page-title" = "Add transaction";
+"add-done" = "Done";
+"add-cancel" = "Cancel";
+"add-type-income" = "Income";
+"add-type-expence" = "Expense";
+"add-account-input-placeholder" = "Select account";
+"add-category-input-placeholder" = "Select category";
+"add-amount-input-placeholder" = "Enter amount";

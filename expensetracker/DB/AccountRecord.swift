@@ -10,8 +10,11 @@ import GRDB
 
 // A plain Player struct
 struct AccountRecord {
+    
+    typealias ID = Int64
+    
     // Prefer Int64 for auto-incremented database ids
-    var id: Int64?
+    var id: ID?
     var name: String
 }
 
